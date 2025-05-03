@@ -44,12 +44,11 @@ def send(webhook_url, message):
 
             if response.status_code == 204:
                 print("[+] Message sent")
-            else:
-                print(f"[!] Error {response.status_code}: {response.text}")
+            # Silent for all non-204 responses
             spam_count -= 1
-        except Exception as e:
-            print(f"[x] Failed: {e}")
-        
+        except:
+            pass  # Silently ignore all errors
+
         time.sleep(DELAY)
 
 def handle_exit_signal(signal, frame):
@@ -90,7 +89,6 @@ def menu():
                 spam_count = int(input("Enter number of messages to spam ➤ ").strip())
                 print(f"[+] Spamming {spam_count} messages")
                 time.sleep(1)
-
             except ValueError:
                 print("[!] Please enter a valid number.")
                 time.sleep(1)
@@ -119,4 +117,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
